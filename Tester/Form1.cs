@@ -29,7 +29,7 @@ namespace Tester
         {
             var cb = (CheckBox)sender;
             int value = cb.Checked ? 1 : 0;
-            arduino.SetReg(ushort.Parse((string)cb.Tag), value);
+            arduino.SetReg(0, value);
         }
     }
 }
