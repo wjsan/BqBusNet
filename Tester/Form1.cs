@@ -18,7 +18,7 @@ namespace Tester
             arduino.Size = 1;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void BtConnect_Click(object sender, EventArgs e)
         {
             var bt = (Button)sender;
             if (arduino.IsConnected)
@@ -33,7 +33,7 @@ namespace Tester
             }
         }
 
-        private void cbLed_CheckedChanged(object sender, EventArgs e)
+        private void CbLed_CheckedChanged(object sender, EventArgs e)
         {
             var cb = (CheckBox)sender;
             int value = cb.Checked ? 1 : 0;
