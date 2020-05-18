@@ -5,9 +5,15 @@ namespace Tester
 {
     public partial class Form1 : Form
     {
+        System.IO.Ports.SerialPort serial = new System.IO.Ports.SerialPort();
+        BqBusNet.BqBus arduino = new BqBusNet.BqBus();
+
         public Form1()
-        { 
+        {
             InitializeComponent();
+            serial.PortName = "COM7";
+            arduino.Serial = serial;
+            arduino.Size = 1;
         }
 
         private void button1_Click(object sender, EventArgs e)

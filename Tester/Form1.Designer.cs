@@ -28,16 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.serial = new System.IO.Ports.SerialPort(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.cbLed = new System.Windows.Forms.CheckBox();
-            this.arduino = new BqBusNet.BqBus(this.components);
             this.SuspendLayout();
-            // 
-            // serial
-            // 
-            this.serial.PortName = "COM7";
             // 
             // button1
             // 
@@ -61,11 +54,6 @@
             this.cbLed.UseVisualStyleBackColor = true;
             this.cbLed.CheckedChanged += new System.EventHandler(this.cbLed_CheckedChanged);
             // 
-            // arduino
-            // 
-            this.arduino.Serial = this.serial;
-            this.arduino.Size = ((ushort)(1));
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -83,11 +71,8 @@
         }
 
         #endregion
-
-        private System.IO.Ports.SerialPort serial;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.CheckBox cbLed;
-        private BqBusNet.BqBus arduino;
     }
 }
 
