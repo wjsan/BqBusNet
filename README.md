@@ -44,10 +44,10 @@ serial.PortName = "COM7";
 bqbus.Serial = serial;
 ```
 
-* On Size property, you can defines count of data that you want to share beetween devices.
+* On Size property, you can defines size of data that you want to share beetween devices.
 
 ```C#
-bqbus.Size = 1;
+bqbus.Size = dataSize;
 ```
 
 * To initialize communication, use Connect() method, to stop use Disconnect().
