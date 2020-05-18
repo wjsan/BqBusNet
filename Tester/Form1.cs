@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.IO.Ports;
+using BqBusNet;
 
 namespace Tester
 {
     public partial class Form1 : Form
     {
-        System.IO.Ports.SerialPort serial = new System.IO.Ports.SerialPort();
-        BqBusNet.BqBus arduino = new BqBusNet.BqBus();
+        SerialPort serial = new SerialPort();
+        BqBus arduino = new BqBus();
 
         public Form1()
         {
