@@ -13,6 +13,11 @@ namespace BqBusNet
         private string msg;
         private List<int> changedRegs = new List<int>();
         private UInt16 size;
+        private bool disconnectCommand = false;
+
+        public delegate void BqBusEventHandler(object sender, EventArgs e);
+
+        public event BqBusEventHandler OnData;
 
         /// <summary>
         /// Serial Port to be used
@@ -38,15 +43,31 @@ namespace BqBusNet
             try
             {
                 msg = Serial.ReadTo("\n");
-                regs = msg.Split(',');
+                //Console.WriteLine(string.Format("Read -> {0}", msg));
+                if (msg.Split(',').Length == size)
+                {
+                    regs = msg.Split(',');
+                }
             }
             catch (Exception)
             {
-
-                throw;
+                msg = "";
+                for (int i = 0; i < regs.Length; i++)
+                {
+                    regs[i] = "0";
+                }
+                previousRegs = regs;
+                //throw;
             }
             keepChangedRegs();
+            if (disconnectCommand)
+            {
+                disconnectCommand = false;
+                DisconnectCommand();
+                return;
+            }
             sendData();
+            OnData?.Invoke(this, e);
         }
 
         private void keepChangedRegs()
@@ -72,7 +93,27 @@ namespace BqBusNet
             if (Serial.IsOpen)
             {
                 Serial.Write(serialData);
+                //Console.WriteLine(string.Format("Write -> {0}", serialData));
             }
+        }
+
+        private void DisconnectCommand()
+        {
+            if (Serial.IsOpen)
+            {
+                try
+                {
+                    Serial.DataReceived -= Serial_DataReceived;
+                    Application.DoEvents();
+                    Serial.Close();
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+            IsConnected = false;
         }
 
         /// <summary>
@@ -102,7 +143,17 @@ namespace BqBusNet
             {
                 Serial.Open();
             }
-            regs = new string[size];
+            Serial.DiscardInBuffer();
+            if(regs == null || size != regs.Length)
+            {
+                regs = new string[size];
+                msg = "";
+                for (int i = 0; i < regs.Length; i++)
+                {
+                    regs[i] = "0";
+                }
+                previousRegs = regs;
+            }
             sendData();
             IsConnected = true;
             Serial.DataReceived += Serial_DataReceived;
@@ -113,21 +164,8 @@ namespace BqBusNet
         /// </summary>
         public void Disconnect()
         {
-            if (Serial.IsOpen)
-            {
-                try
-                {
-                    Serial.DataReceived -= Serial_DataReceived;
-                    Application.DoEvents();
-                    Serial.Close();
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-            }
-            IsConnected = false;
+            if(Serial.IsOpen)
+                disconnectCommand = true;
         }
 
         /// <summary>
