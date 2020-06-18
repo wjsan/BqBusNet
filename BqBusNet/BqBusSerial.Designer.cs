@@ -1,6 +1,6 @@
 ﻿namespace BqBusNet
 {
-    partial class BqBus
+    partial class BqBusSerial
     {
         /// <summary>
         /// Variável de designer necessária.

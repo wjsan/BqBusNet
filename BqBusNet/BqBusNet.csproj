@@ -37,18 +37,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BqBus.cs">
+    <Compile Include="BqBusSerial.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="BqBus.Designer.cs">
-      <DependentUpon>BqBus.cs</DependentUpon>
+    <Compile Include="BqBusSerial.Designer.cs">
+      <DependentUpon>BqBusSerial.cs</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BqBus.resx">
-      <DependentUpon>BqBus.cs</DependentUpon>
+    <EmbeddedResource Include="BqBusSerial.resx">
+      <DependentUpon>BqBusSerial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
