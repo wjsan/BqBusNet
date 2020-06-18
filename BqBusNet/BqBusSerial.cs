@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO.Ports;
-using System.Windows.Forms;
 
 namespace BqBusNet
 {
@@ -12,7 +11,6 @@ namespace BqBusNet
         private string[] regs;
         private string msg;
         private List<int> changedRegs = new List<int>();
-        private int size;
 
         public event EventHandler DataRecieved;
 
@@ -26,7 +24,7 @@ namespace BqBusNet
         /// Get or Set Size of exchanged bqbus data (regs count)
         /// </summary>
         [Description("Get or Set Size of exchanged bqbus data (regs count)")]
-        public int Size { get => size; set => size = value; }
+        public int Size { get; set; }
 
         /// <summary>
         /// Checks if device is connected
@@ -104,7 +102,7 @@ namespace BqBusNet
             {
                 Serial.Open();
             }
-            regs = new string[size];
+            regs = new string[Size];
             sendData();
             IsConnected = true;
             Serial.DataReceived += Serial_DataReceived;
